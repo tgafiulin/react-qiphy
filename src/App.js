@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
 import { Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { editTags } from './app/tagReducer';
+import fetchGiphs from './app/asyncActions/images'
 
 function App() {
   const dispatch = useDispatch();
@@ -12,7 +12,7 @@ function App() {
 
   const getGiphs = () => {
     if (tags) {
-      dispatch(editTags(tags));
+      dispatch(fetchGiphs(tags));
       editTagsInput('');
       editTagsError('');
     } else {
