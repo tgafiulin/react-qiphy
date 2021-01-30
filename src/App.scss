@@ -1,0 +1,24 @@
+.App {
+  display: flex;
+  align-items: center;
+  margin: 20px auto;
+  justify-content: center;
+}
+
+.btn {
+  margin-left: 10px;
+}
+
+.input-block{
+  max-width: 300px;
+  width: 100%;
+  position: relative;
+
+  span {
+    position: absolute;
+    top: calc(100% + .75rem);
+    color: red;
+    font-size: .8rem;
+    left: .75rem;
+  }
+}
