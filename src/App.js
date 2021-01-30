@@ -1,56 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React, { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.scss';
+import { Button } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { editTags } from './app/tagReducer';
 
 function App() {
+  const dispatch = useDispatch();
+  const [tags, editTagsInput] = useState('');
+  const [tagsError, editTagsError] = useState('');
+
+  const getGiphs = () => {
+    if (tags) {
+      dispatch(editTags(tags));
+      editTagsInput('');
+      editTagsError('');
+    } else {
+      editTagsError('заполните поле «тег»');
+    }
+  }
+
+  const clear = () => {
+    editTagsInput('');
+    editTagsError('');
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
+      <div className="input-block">
+        <input 
+          type="text"
+          value={tags}
+          onChange={(e) => editTagsInput(e.target.value)}
+          placeholder="введите тег"
+          className="form-control"
+        />
+        <span>{tagsError}</span>
+      </div>
+      
+      <Button variant="success" onClick={getGiphs}>Загрузить</Button>
+      <Button variant="danger" onClick={clear}>Очистить</Button>
+      <Button variant="primary">Группировать</Button>
     </div>
   );
 }
