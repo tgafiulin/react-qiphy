@@ -1,23 +1,31 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-const initialState = { 
-    giphs: []
-}
+export const fetchGiphs = createAsyncThunk(
+    'tags/fetchGiphsByTag',
+    async (tag) => {
+      const response = await fetch(`https://api.giphy.com/v1/gifs/random?api_key=gTJAO48YcpmrADUyo4opy4ES4g7iDBxx&tag=${tag}`)
+      return {
+          tag: tag,
+          giphs: await response.json()
+      }
+    }
+)
 
 const tagSlice = createSlice({
   name: 'tags',
-  initialState,
+  initialState: {giphs: [], loading: false},
   reducers: {
-    addGiphs(state, action) {
-      state.giphs.push({
-          tag: action.payload.tags,
-          giphs: action.payload.giphs
-      })
-      console.log(action.payload.giphs)
-    }
+      
   },
+  extraReducers: {
+    [fetchGiphs.fulfilled]: (state, action) => {
+        state.giphs.push({
+            tag: action.payload.tag,
+            url: action.payload.giphs.data.image_url
+        })
+    }
+  }
 })
 
-export const { addGiphs } = tagSlice.actions
 export default tagSlice.reducer
 

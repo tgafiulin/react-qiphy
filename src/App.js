@@ -2,15 +2,18 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
 import { Button } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
-import fetchGiphs from './app/asyncActions/images'
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchGiphs } from './app/tagReducer'
 
 function App() {
   const dispatch = useDispatch();
   const [tags, editTagsInput] = useState('');
   const [tagsError, editTagsError] = useState('');
+  // const giphs = useSelector(state => state.tags.giphs)
 
   const getGiphs = () => {
+    
+    
     if (tags) {
       dispatch(fetchGiphs(tags));
       editTagsInput('');
