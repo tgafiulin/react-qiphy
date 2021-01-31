@@ -13,7 +13,7 @@ export const fetchGiphs = createAsyncThunk(
 
 const giphsSlice = createSlice({
   name: 'giphs',
-  initialState: {giphs: [], loading: false},
+  initialState: {giphs: [], groupGiphs: {}, loading: false},
   reducers: {
       clearGiphs: (state) => {
         state.giphs = []
@@ -21,10 +21,18 @@ const giphsSlice = createSlice({
   },
   extraReducers: {
     [fetchGiphs.fulfilled]: (state, action) => {
+        const tag = action.payload.tag;
+        const giphsUrl = action.payload.giphs.data.image_url;
         state.giphs.push({
-            tag: action.payload.tag,
-            url: action.payload.giphs.data.image_url
+            tag: tag,
+            url: giphsUrl
         })
+        if (state.groupGiphs[tag]) {
+          state.groupGiphs[tag].push(giphsUrl);
+        } else {
+          state.groupGiphs[tag] = [];
+          state.groupGiphs[tag].push(giphsUrl);
+        }
     }
   }
 })

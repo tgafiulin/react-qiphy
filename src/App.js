@@ -10,6 +10,7 @@ function App() {
   const [tags, editTagsInput] = useState('');
   const [tagsError, editTagsError] = useState('');
   const giphs = useSelector((state) => state.giphs.giphs)
+  const giphsGroup = useSelector((state) => state.giphs.groupGiphs)
 
   const getGiphs = () => {   
     if (tags) {
@@ -24,6 +25,10 @@ function App() {
     dispatch(clearGiphs());
     editTagsInput('');
     editTagsError('');
+  }
+
+  const group = () => {
+    console.log(giphsGroup);
   }
 
   return (
@@ -42,7 +47,7 @@ function App() {
         
         <Button variant="success" onClick={getGiphs}>Загрузить</Button>
         <Button variant="danger" onClick={clear}>Очистить</Button>
-        <Button variant="primary">Группировать</Button>
+        <Button variant="primary" onClick={group}>Группировать</Button>
       </div>
       <div className="result-block">
         {giphs.map((gif) => {
