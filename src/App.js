@@ -9,7 +9,7 @@ function App() {
   const dispatch = useDispatch();
   const [tags, editTagsInput] = useState('');
   const [tagsError, editTagsError] = useState('');
-  const giphs = useSelector((state) => state.giphs.giphs)
+  const [group, toggleGroup] = useState(false);
   const giphsGroup = useSelector((state) => state.giphs.groupGiphs)
 
   const getGiphs = () => {   
@@ -28,7 +28,7 @@ function App() {
   }
 
   const group = () => {
-    console.log(giphsGroup);
+    toggleGroup(true);
   }
 
   return (
@@ -50,10 +50,11 @@ function App() {
         <Button variant="primary" onClick={group}>Группировать</Button>
       </div>
       <div className="result-block">
-        {giphs.map((gif) => {
-          return <GiphItem gif={gif} />
+        {Object.keys(giphsGroup).map(giphsTag => (
+          giphsGroup[giphsTag].map((gif) => {
+            return <GiphItem url={gif} tag={giphsTag} />
           })
-        }
+        ))}
       </div>
     </div>
   );

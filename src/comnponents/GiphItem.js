@@ -1,7 +1,8 @@
 
 
 function GiphItem(props) {
-    const {tag, url} = props.gif;
+    const url = props.url;
+    const tag = props.tag;
 
     return (
         <div className="giph">
