@@ -15,7 +15,9 @@ const giphsSlice = createSlice({
   name: 'giphs',
   initialState: {giphs: [], loading: false},
   reducers: {
-      
+      clearGiphs: (state) => {
+        state.giphs = []
+      }
   },
   extraReducers: {
     [fetchGiphs.fulfilled]: (state, action) => {
@@ -27,5 +29,6 @@ const giphsSlice = createSlice({
   }
 })
 
+export const { clearGiphs } = giphsSlice.actions
 export default giphsSlice.reducer
 

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchGiphs } from './app/giphsReducer'
+import { fetchGiphs, clearGiphs } from './app/giphsReducer'
 import GiphItem from './comnponents/GiphItem'
 
 function App() {
@@ -14,7 +14,6 @@ function App() {
   const getGiphs = () => {   
     if (tags) {
       dispatch(fetchGiphs(tags));
-      // editTagsInput('');
       editTagsError('');
     } else {
       editTagsError('заполните поле «тег»');
@@ -22,6 +21,7 @@ function App() {
   }
 
   const clear = () => {
+    dispatch(clearGiphs());
     editTagsInput('');
     editTagsError('');
   }
