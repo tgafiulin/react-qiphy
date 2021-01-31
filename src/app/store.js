@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import tagReducer from './tagReducer'
+import giphsReducer from './giphsReducer'
 
 export default configureStore({
   reducer: {
-    tags: tagReducer
+    giphs: giphsReducer
   },
 });
